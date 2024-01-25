@@ -3,7 +3,7 @@
 ## 简介
 
 本仓库的测试集合主要是为全国大学生操作系统比赛，龙芯赛道提供比赛测试样例。
-关于具体比赛访问 https://github.com/oscomp。
+关于具体比赛访问 https://github.com/oscomp
 
 StarryOS，一个基于ArceOS实现的宏内核，我们将其移植到LA64，次测试样例用于
 测试StarryOS的功能，旨在更加完善系统功能。
