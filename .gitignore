@@ -1,0 +1,10 @@
+/.vscode
+/.idea
+
+*.img
+*.exe
+*.o
+*.os
+
+/tmp
+
