@@ -9122,8 +9122,8 @@ static int checkjobs(struct pipe *fg_pipe, pid_t waitfor_pid)
 #endif
 		childpid = waitpid(-1, &status, attributes);
 		if (childpid <= 0) {
-			if (childpid && errno != ECHILD)
-				bb_simple_perror_msg("waitpid");
+			// if (childpid && errno != ECHILD)
+			// 		bb_simple_perror_msg("waitpid");
 #if ENABLE_HUSH_FAST
 			else { /* Until next SIGCHLD, waitpid's are useless */
 				G.we_have_children = (childpid == 0);
