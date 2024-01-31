@@ -1,0 +1,3 @@
+[submodule "linux-test-project"]
+	path = linux-test-project
+	url = https://github.com/LoongsonLab/oscomp-linux-test-project.git
