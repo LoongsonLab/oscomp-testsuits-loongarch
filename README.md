@@ -47,3 +47,25 @@ cd StarryOS-LoongArch && ./build_img.sh sdcard
 make run
 
 ```
+
+
+## Linux Test Protect 编译
+LTP(Linux Test Project)是由SGI，OSDL和Bull发起的联合项目，由IBM，红帽，甲骨文等公司开发和维护。
+该项目的目标是向开源社区提供测试，以验证Linux的可靠性，健壮性和稳定性。
+
+LTP测试套件包含一系列用于测试Linux内核和相关功能的工具。目标是通过将测试自动化带入测试工作来改进Linux内核和系统库。
+
+目前我们主要测试linux的系统调用syscall。
+
+```shell
+
+cd linux-test-project
+./configure --prefix=/home/airxs/user/os/gitlab/github/linux-test-project/local/ltp \
+      AR=loongarch64-linux-gnu-ar RANLIB=loongarch64-linux-gnu-ranlib --host=loongarch64-linux-gnu \
+      --target=loongarch64-linux-gnu CFLAGS=-static LDFLAGS=-static
+
+cd testcases/kernel/syscalls
+make -j
+```
+然后在syscalls/下，各个系统调用测试文件夹内生成可执行文件，然后复制到ramdisk中测试。
+
