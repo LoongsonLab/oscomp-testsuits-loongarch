@@ -269,7 +269,7 @@ $(UTILS) :
 	-cd ../scripts; make get
 
 $O/lmbench_all: $(EXEOBJS) $O/lmbench.a lmbench_all.c
-	$(COMPILE) -o $O/lmbench_all $^ -lm
+	$(COMPILE) -o $O/lmbench_all $^ -lm -ltirpc
 	cat lmexes.txt | xargs -n 1 -I {} ../scripts/mklink.sh {} $(abspath $O)
 
 

@@ -20,6 +20,10 @@ trap 'rm -f ${BASE}$$.s ${BASE}$$.c ${BASE}$$.o ${BASE}$$; exit 1' 1 2 15
 
 LDLIBS=-lm
 
+SYSROOT=$(dirname $(dirname $(which loongarch64-linux-gnu-gcc)))
+CFLAGS="${CFLAGS} -I${SYSROOT}/sysroot/usr/include/tirpc"
+LDLIBS="${LDLIBS} -ltirpc"
+
 # check for HP-UX's ANSI compiler
 echo "main(int ac, char *av[]) { int i; }" > ${BASE}$$.c
 if ${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL}
