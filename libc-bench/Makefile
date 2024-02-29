@@ -4,10 +4,10 @@ OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -g -static
 LDFLAGS = -static
-LIBS = -lpthread -lrt -lpthread
+LIBS = -lpthread -lrt
 
 
-all: clean libc-bench
+all: libc-bench
 
 clean:
 	rm -f $(OBJS) libc-bench

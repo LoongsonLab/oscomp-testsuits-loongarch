@@ -1,6 +1,6 @@
 MUSL_LIB ?= ../runtime/lib64
 PREFIX   ?= loongarch64-linux-gnu-
-PREFIX   := musl-
+PREFIX   := loongarch64-linux-musl-
 CC=$(PREFIX)gcc
 OBJCOPY=$(PREFIX)objcopy
 
@@ -26,6 +26,8 @@ CFLAGS += -Werror=implicit-function-declaration -Werror=implicit-int -Werror=poi
 CFLAGS += -Os -s
 CFLAGS += -Isrc/common/
 LDLIBS += -Os -s -lpthread -lm -lrt
+
+LDFLAGS += -lm
 
 # CFLAGS += -D_FILE_OFFSET_BITS=64
 # LDLIBS += -lcrypt -ldl -lresolv -lutil -lpthread
@@ -54,14 +56,14 @@ entry.h: dynamic.txt static.txt
 	printf "#endif\n\n" >> entry.h
 
 runtest: src/common/runtest.obj $(COMMON_OBJS)
-	$(CC) $(LDFLAGS) $^ -static -o runtest.exe
+	$(CC) $(LDFLAGS) $^ -static -o runtest.exe -lm
 
 static: $(COMMON_OBJS) $(STATIC_PREFIXED_OBJS) entry.c src/functional/tls_align_dso.obj
-	$(CC) $(LDFLAGS) -DSTATIC $^ -static -o entry-static.exe
+	$(CC) $(LDFLAGS) -DSTATIC $^ -static -o entry-static.exe -lm -lcrypt
 
 dynamic: $(DYNAMIC_PREFIXED_OBJS) $(DSO_SOS) $(COMMON_OBJS) entry.c
 	# $(CC) $(LDFLAGS) entry.c -DDYNAMIC $(COMMON_OBJS) $(DYNAMIC_PREFIXED_OBJS) -Lsrc/functional -Lsrc/regression -ltls_align_dso -ltls_init_dso -ldlopen_dso -ltls_get_new-dtv_dso -o entry-dynamic.exe
-	$(CC) $(LDFLAGS) entry.c -DDYNAMIC $(COMMON_OBJS) $(DYNAMIC_PREFIXED_OBJS) -Lsrc/functional -Lsrc/regression  -o entry-dynamic.exe -rdynamic
+	$(CC) $(LDFLAGS) entry.c -DDYNAMIC $(COMMON_OBJS) $(DYNAMIC_PREFIXED_OBJS) -Lsrc/functional -Lsrc/regression  -o entry-dynamic.exe -rdynamic -lm
 
 common: $(COMMON_OBJS)
 
